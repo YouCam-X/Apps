@@ -1,3 +1,4 @@
+from os import terminal_size
 from bs4 import BeautifulSoup
 import requests
 import time
@@ -123,10 +124,12 @@ def main():
     while True:
 
         if keyboard.is_pressed('enter'):
+            keyboard.wait('enter',True,True)
             load_previous()
             break
 
         elif keyboard.is_pressed('esc'):
+            keyboard.wait('esc',True,True)
             edit_data()
             break
 
