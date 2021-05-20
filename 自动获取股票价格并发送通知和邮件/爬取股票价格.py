@@ -1,4 +1,4 @@
-from os import terminal_size
+import os
 from bs4 import BeautifulSoup
 import requests
 import time
@@ -16,14 +16,14 @@ def edit_data():
     global password
     global user_agent
 
-    file = open('config.txt','w')
-
     from_addr = input('请输入发送邮件的邮箱地址')
     to_addr = input('请输入接收邮件的邮箱地址')
     password = input('请输入授权码')
     user_agent = input('请在浏览器中复制User-Agent参数，贴到这里')
 
     data = [from_addr,to_addr,password,user_agent]
+
+    file = open('config.txt','w')
 
     for i in data:
         file.write(i)
@@ -38,7 +38,7 @@ def load_previous():
     global password
     global user_agent
 
-    try:
+    if os.path.isfile('config.txt'):
         file = open('config.txt','r')
         data = file.readlines()
     
@@ -50,9 +50,8 @@ def load_previous():
 
         file.close()
 
-    except:
+    else:
         print('没有已存在的信息，请现在输入')
-        file = open('config.txt','w')
 
         from_addr = input('请输入发送邮件的邮箱地址')
         to_addr = input('请输入接收邮件的邮箱地址')
@@ -61,6 +60,7 @@ def load_previous():
 
         data = [from_addr,to_addr,password,user_agent]
 
+        file = open('config.txt','w')
         for i in data:
             file.write(i)
             file.write('\n')
@@ -124,7 +124,7 @@ def main():
     while True:
 
         if keyboard.is_pressed('enter'):
-            keyboard.wait('enter',True,True)
+            buffer = input('')
             load_previous()
             break
 
