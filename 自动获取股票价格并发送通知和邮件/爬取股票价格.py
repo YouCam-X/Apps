@@ -144,8 +144,10 @@ def main():
             'referer':'https://www.baidu.com/s?wd='+ encodedname + '&rsv_spt=1&rsv_iqid=0xc84846ff00069f4b&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_dl=tb&rsv_sug3=10&rsv_sug1=10&rsv_sug7=100&rsv_sug2=0&rsv_btype=i&inputT=4866&rsv_sug4=4866',
             'user-agent':user_agent}
 
-    try:
-        while True:
+
+    while True:
+
+        try:
             toaster = ToastNotifier()
             searchpage = requests.get(url,headers=headers)
 
@@ -184,9 +186,10 @@ def main():
 
             time.sleep(60)
 
-    except:
-        print('股票名称有误')
-
+        except:
+            loop_number += 1
+            print('第%s次请求失败'%(str(loop_number)))
+            continue
 
 main()
 press_enter = input('程序已执行完毕，按Enter键退出')
